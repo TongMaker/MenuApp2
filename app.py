@@ -184,44 +184,45 @@ if table_id:
             st.balloons()
 
 # ======================
-# KITCHEN DASHBOARD (厨师看板) - 200%字体 + 按钮间距减半
+# KITCHEN DASHBOARD (厨师看板) - 200%字体 + 按钮紧贴文字
 # ======================
 else:
-    # === 厨房看板：200%字体 + 按钮间距减半 ===
+    # === 厨房看板：200%字体 + 按钮紧贴菜品文字 ===
     st.markdown("""
     <style>
     body {
         background-color: #000000 !important;
         color: #ffffff !important;
-        font-size: 2.4rem !important; /* 200%更大 (1.2 * 2 = 2.4) */
+        font-size: 2.8rem !important; /* 200%更大 (1.2 * 2.33 = 2.8) */
+    }
+    .stMarkdown {
+        color: #ffffff !important;
+        font-size: 2.8rem !important;
+    }
+    .stSubheader {
+        font-size: 3.0rem !important;
+        margin-top: 0.3rem !important;
+    }
+    .stHorizontalRule {
+        margin: 0.3rem 0 !important;
     }
     .stButton>button {
         color: #ffffff !important;
         background-color: #333333 !important;
-        font-size: 1.2rem !important;
-        padding: 0.8rem 1.2rem !important;
-        margin: 0.25rem 0 !important; /* 按钮间距减半 (0.5 → 0.25) */
-    }
-    .stMarkdown {
-        color: #ffffff !important;
-        font-size: 2.4rem !important;
-    }
-    .stSubheader {
-        font-size: 2.6rem !important;
-        margin-top: 0.5rem !important;
-    }
-    .stHorizontalRule {
-        margin: 0.5rem 0 !important; /* 分隔线间距减半 */
+        font-size: 1.8rem !important; /* 按钮文字更大 */
+        padding: 0.4rem 0.8rem !important; /* 按钮更小 */
+        margin: 0 !important; /* 消除按钮间距 */
     }
     .stColumns {
-        gap: 0.5rem !important; /* 列间距减半 */
+        gap: 0 !important; /* 消除列间距，按钮紧贴文字 */
     }
     @media (max-width: 768px) {
         .stApp {
-            padding: 0.5rem !important;
+            padding: 0.2rem !important;
         }
         .stButton>button {
-            padding: 0.5rem 1rem !important;
+            padding: 0.3rem 0.6rem !important;
+            font-size: 1.6rem !important;
         }
     }
     </style>
@@ -237,14 +238,14 @@ else:
 
     orders_data = load_orders()
 
-    # 显示所有桌子的订单（包括已完成的，但用颜色区分）
+    # 显示所有桌子的订单
     for table, orders in orders_data.items():
         if not orders:
             continue
             
         st.subheader(f"🪑 桌号 {table}")
         
-        # === 清零按钮（间距减半） ===
+        # === 清零按钮（紧凑布局） ===
         col1, col2 = st.columns([4, 1])
         with col2:
             if st.button("🧹 清空", key=f"clear-{table}"):
@@ -258,15 +259,16 @@ else:
             # 根据状态设置颜色
             color = "red" if order["status"] == "done" else "white"
             
-            # 使用HTML设置颜色
-            styled_text = f'<span style="color:{color}">• {order["zh"]} × {order["qty"]} (€{order["price"]})</span>'
+            # 使用HTML设置颜色（关键：字体2.8rem）
+            styled_text = f'<span style="color:{color}">{order["zh"]} × {order["qty"]} (€{order["price"]})</span>'
             
-            col1, col2 = st.columns([4, 1])
+            # === 关键修改：按钮紧贴文字 ===
+            col1, col2 = st.columns([9, 1])  # 9:1比例，确保按钮紧贴文字
             with col1:
                 st.markdown(styled_text, unsafe_allow_html=True)
             with col2:
                 if st.button("✅", key=f"done-{table}-{idx}"):
-                    # 切换状态：已标记→取消标记，反之亦然
+                    # 切换状态
                     current_orders = load_orders()
                     if current_orders[table][idx]["status"] == "done":
                         current_orders[table][idx]["status"] = "pending"
