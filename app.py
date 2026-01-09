@@ -9,7 +9,8 @@ import time
 st.set_page_config(
     page_title="Gastronomía de Xi’an",
     page_icon="🔥",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 ORDERS_FILE = "orders.json"
@@ -80,14 +81,37 @@ menu = {
 }
 
 # ======================
-# CUSTOMER PAGE (顾客点餐) - 中西双语
+# CUSTOMER PAGE (顾客点餐) - 字体放大 + 中西双语
 # ======================
 if table_id:
+    # === 顾客点单页面：字体放大1.5倍 ===
+    st.markdown("""
+    <style>
+    body {
+        font-size: 1.5rem !important;
+    }
+    .stMarkdown {
+        font-size: 1.5rem !important;
+    }
+    .stButton>button {
+        font-size: 1.3rem !important;
+        padding: 0.8rem 1.5rem !important;
+    }
+    .stExpander {
+        font-size: 1.4rem !important;
+    }
+    .stNumberInput>div>div>input {
+        font-size: 1.3rem !important;
+        padding: 0.5rem !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
     st.title(f"🍽️ 桌号 {table_id}")
     st.caption("Por favor haga su pedido · 请点餐")
     st.markdown("---")
 
-    # 初始化购物车（仅内存中）
+    # 初始化购物车
     cart_key = f"cart_{table_id}"
     if cart_key not in st.session_state:
         st.session_state[cart_key] = []
@@ -111,7 +135,8 @@ if table_id:
                     min_value=1,
                     max_value=10,
                     value=1,
-                    key=f"qty-{table_id}-{title}"
+                    key=f"qty-{table_id}-{title}",
+                    step=1
                 )
 
                 if st.button("➕ Añadir al carrito", key=f"add-{table_id}-{title}"):
@@ -120,7 +145,7 @@ if table_id:
                         "es": dish["es"],
                         "qty": qty,
                         "price": dish["price"],
-                        "status": "pending"  # 新增状态
+                        "status": "pending"
                     })
                     st.session_state[cart_key] = cart
                     st.rerun()
@@ -146,7 +171,7 @@ if table_id:
         
         st.markdown(f"### 💰 Total €{total:.2f}")
         
-        if st.button("✅ Confirmar pedido", type="primary"):
+        if st.button("✅ Confirmar pedido", type="primary", key="confirm_order"):
             # 1. 加载当前订单
             orders = load_orders()
             # 2. 追加到该桌的订单
@@ -159,28 +184,53 @@ if table_id:
             st.balloons()
 
 # ======================
-# KITCHEN DASHBOARD (厨师看板) - 全中文 + 白色文字
+# KITCHEN DASHBOARD (厨师看板) - 适配手机UI + 全中文
 # ======================
 else:
-    # === 设置黑色背景 + 白色文字 ===
+    # === 厨房看板：适配手机UI ===
     st.markdown("""
-        <style>
-        body {
-            background-color: #000000 !important;
-            color: #ffffff !important;
+    <style>
+    body {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        font-size: 1.2rem !important;
+    }
+    .stButton>button {
+        color: #ffffff !important;
+        background-color: #333333 !important;
+        font-size: 1.2rem !important;
+        padding: 0.8rem 1.2rem !important;
+        margin: 0.5rem 0 !important;
+    }
+    .stMarkdown {
+        color: #ffffff !important;
+        font-size: 1.2rem !important;
+    }
+    .stSubheader {
+        font-size: 1.3rem !important;
+        margin-top: 1rem !important;
+    }
+    .stHorizontalRule {
+        margin: 1rem 0 !important;
+    }
+    .stExpander {
+        font-size: 1.2rem !important;
+    }
+    .stColumns {
+        gap: 1rem !important;
+    }
+    @media (max-width: 768px) {
+        .stApp {
+            padding: 1rem !important;
+        }
+        .stColumns {
+            gap: 0.5rem !important;
         }
         .stButton>button {
-            color: #ffffff !important;
-            background-color: #333333 !important;
+            padding: 0.6rem 1rem !important;
         }
-        .stMarkdown {
-            color: #ffffff !important;
-        }
-        #MainMenu {visibility: hidden;}
-        header {visibility: hidden;}
-        footer {visibility: hidden;}
-        .stApp {padding-bottom: 0px;}
-        </style>
+    }
+    </style>
     """, unsafe_allow_html=True)
     
     st.title("🔥 厨房看板 - 待处理订单")
@@ -200,7 +250,7 @@ else:
             
         st.subheader(f"🪑 桌号 {table}")
         
-        # === 清零按钮（保留） ===
+        # === 清零按钮（适配手机） ===
         col1, col2 = st.columns([4, 1])
         with col2:
             if st.button("🧹 清空", key=f"clear-{table}"):
@@ -215,7 +265,7 @@ else:
             color = "red" if order["status"] == "done" else "white"
             
             # 使用HTML设置颜色
-            styled_text = f'<span style="color:{color}">• {order["zh"]} × {order["qty"]} (￥{order["price"]})</span>'
+            styled_text = f'<span style="color:{color}">• {order["zh"]} × {order["qty"]} (€{order["price"]})</span>'
             
             col1, col2 = st.columns([4, 1])
             with col1:
