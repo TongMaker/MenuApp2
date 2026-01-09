@@ -1,32 +1,41 @@
 import streamlit as st
 import os
 import json
+import time
 
 # ======================
 # CONFIG
 # ======================
 st.set_page_config(
     page_title="Gastronomía de Xi’an",
-    page_icon="🍜",
-    layout="centered"
+    page_icon="🔥",
+    layout="wide"
 )
 
 ORDERS_FILE = "orders.json"
 
 # ======================
-# INIT ORDERS FILE (确保文件存在)
+# INIT ORDERS FILE
 # ======================
 if not os.path.exists(ORDERS_FILE):
     with open(ORDERS_FILE, "w", encoding="utf-8") as f:
         json.dump({"1": [], "2": [], "3": []}, f, ensure_ascii=False, indent=2)
 
 # ======================
-# UTILITY FUNCTIONS: 读写文件
+# UTILITY FUNCTIONS
 # ======================
 def load_orders():
-    """从文件读取订单"""
+    """加载订单，确保每个订单项都有status字段"""
     with open(ORDERS_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+        orders = json.load(f)
+    
+    # 迁移：为所有订单项添加status字段
+    for table, items in orders.items():
+        for item in items:
+            if "status" not in item:
+                item["status"] = "pending"  # 新订单默认未完成
+    
+    return orders
 
 def save_orders(orders_dict):
     """保存订单到文件"""
@@ -40,30 +49,30 @@ params = st.query_params
 table_id = params.get("table", [None])[0]
 
 # ======================
-# MENU DATA (保持不变)
+# MENU DATA (中西双语)
 # ======================
 menu = {
     "🥟 包饺馍 · Entrantes": [
         {
-            "es": "Rougamo de Cerdo",
             "zh": "肉夹馍",
-            "desc": "Hamburguesa estilo Xi’an rellena de cerdo cocido con especias.",
+            "es": "Rougamo de Cerdo",
+            "desc": "西安特色肉夹馍，猪肉炖煮配香料",
             "price": 6.90,
             "img": "images/肉夹馍.jpg"
         },
         {
-            "es": "Jiaozi fritos",
             "zh": "煎饺",
-            "desc": "Empanadillas crujientes de cerdo y verduras.",
+            "es": "Jiaozi fritos",
+            "desc": "外酥里嫩的猪肉蔬菜煎饺",
             "price": 8.90,
             "img": "images/煎饺.jpg"
         }
     ],
     "🍜 面类 · Tallarines": [
         {
-            "es": "Tallarines Xi’an",
             "zh": "西安油泼面",
-            "desc": "Fideos anchos con chile y aceite caliente.",
+            "es": "Tallarines Xi’an",
+            "desc": "宽面条配热油辣椒",
             "price": 8.90,
             "img": "images/西安油泼面.jpg"
         }
@@ -71,111 +80,155 @@ menu = {
 }
 
 # ======================
-# DISH CARD COMPONENT
-# ======================
-def render_dish(table, dish):
-    title = f"{dish['zh']} · {dish['es']}"
-    with st.expander(f"{title} — €{dish['price']}"):
-        # 图片逻辑
-        if os.path.exists(dish["img"]):
-            st.image(dish["img"], use_container_width=True)
-        else:
-            st.info("📷 Imagen próximamente")
-        st.write(dish["desc"])
-
-        # 数量选择
-        qty = st.number_input(
-            "数量",
-            min_value=1,
-            max_value=10,
-            value=1,
-            key=f"{table}-{title}"
-        )
-
-        if st.button("➕ 加入点单", key=f"btn-{table}-{title}"):
-            # 1. 读取当前最新数据
-            current_orders = load_orders()
-            # 2. 更新对应桌号
-            current_orders.setdefault(table, []).append({
-                "zh": dish["zh"],
-                "es": dish["es"],
-                "qty": qty,
-                "price": dish["price"]
-            })
-            # 3. 立即保存回文件
-            save_orders(current_orders)
-            st.success("已加入点单！")
-            st.rerun()  # 刷新页面显示最新状态
-
-# ======================
-# CUSTOMER PAGE (顾客点餐)
+# CUSTOMER PAGE (顾客点餐) - 中西双语
 # ======================
 if table_id:
-    st.title(f"🍽️ Mesa {table_id}")
-    st.caption("请点餐 · Por favor haga su pedido")
+    st.title(f"🍽️ 桌号 {table_id}")
+    st.caption("Por favor haga su pedido · 请点餐")
     st.markdown("---")
 
-    # 每次进入页面都从文件读取最新数据
-    orders_data = load_orders()
-    my_orders = orders_data.get(table_id, [])
+    # 初始化购物车（仅内存中）
+    cart_key = f"cart_{table_id}"
+    if cart_key not in st.session_state:
+        st.session_state[cart_key] = []
 
+    cart = st.session_state[cart_key]
+
+    # 显示菜单
     for section, dishes in menu.items():
         st.subheader(section)
         for dish in dishes:
-            render_dish(table_id, dish)
+            title = f"{dish['zh']} · {dish['es']}"
+            with st.expander(f"{title} — €{dish['price']}"):
+                if os.path.exists(dish["img"]):
+                    st.image(dish["img"], use_container_width=True)
+                else:
+                    st.info("📷 Imagen próximamente")
+                st.write(dish["desc"])
 
+                qty = st.number_input(
+                    "Cantidad",
+                    min_value=1,
+                    max_value=10,
+                    value=1,
+                    key=f"qty-{table_id}-{title}"
+                )
+
+                if st.button("➕ Añadir al carrito", key=f"add-{table_id}-{title}"):
+                    cart.append({
+                        "zh": dish["zh"],
+                        "es": dish["es"],
+                        "qty": qty,
+                        "price": dish["price"],
+                        "status": "pending"  # 新增状态
+                    })
+                    st.session_state[cart_key] = cart
+                    st.rerun()
+
+    # 显示购物车
     st.markdown("---")
-    st.subheader("🧾 当前点单")
-    
-    if not my_orders:
-        st.info("尚未点餐")
+    st.subheader("🛒 Carrito")
+    if not cart:
+        st.info("Carrito vacío · 购物车为空")
     else:
         total = 0
-        for o in my_orders:
-            subtotal = o["qty"] * o["price"]
+        for idx, item in enumerate(cart):
+            subtotal = item["qty"] * item["price"]
             total += subtotal
-            st.write(f"- {o['zh']} {o['es']} × {o['qty']} = €{subtotal:.2f}")
-        st.markdown(f"### 💰 总计 €{total:.2f}")
-
-        if st.button("✅ 确认下单"):
-            st.success("订单已提交 🙏")
-            # 这里可以添加发送通知的逻辑
+            col1, col2 = st.columns([4, 1])
+            with col1:
+                st.write(f"{item['zh']} {item['es']} × {item['qty']} = €{subtotal:.2f}")
+            with col2:
+                if st.button("🗑️", key=f"del-{table_id}-{idx}"):
+                    cart.pop(idx)
+                    st.session_state[cart_key] = cart
+                    st.rerun()
+        
+        st.markdown(f"### 💰 Total €{total:.2f}")
+        
+        if st.button("✅ Confirmar pedido", type="primary"):
+            # 1. 加载当前订单
+            orders = load_orders()
+            # 2. 追加到该桌的订单
+            orders[table_id] = orders.get(table_id, []) + cart
+            # 3. 保存
+            save_orders(orders)
+            # 4. 清空购物车
+            st.session_state[cart_key] = []
+            st.success("Pedido confirmado ✅ ¡Listo para la cocina!")
+            st.balloons()
 
 # ======================
-# DASHBOARD (后台看板)
+# KITCHEN DASHBOARD (厨师看板) - 全中文 + 白色文字
 # ======================
 else:
-    st.title("📊 后台订单看板")
+    # === 设置黑色背景 + 白色文字 ===
+    st.markdown("""
+        <style>
+        body {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+        .stButton>button {
+            color: #ffffff !important;
+            background-color: #333333 !important;
+        }
+        .stMarkdown {
+            color: #ffffff !important;
+        }
+        #MainMenu {visibility: hidden;}
+        header {visibility: hidden;}
+        footer {visibility: hidden;}
+        .stApp {padding-bottom: 0px;}
+        </style>
+    """, unsafe_allow_html=True)
+    
+    st.title("🔥 厨房看板 - 待处理订单")
+    st.caption("点击 ✅ 标记/取消标记完成（红色表示已完成）")
+    st.markdown("---")
 
-    # 引入自动刷新组件
+    # 自动刷新
     from streamlit_autorefresh import st_autorefresh
-
-    # 每3秒自动刷新一次
     st_autorefresh(interval=3000, key="dashboard_refresh")
 
-    # 每次刷新都从文件读取最新数据
     orders_data = load_orders()
 
-    if not any(orders_data.values()):
-        st.info("暂无订单")
-    else:
-        for table, orders in orders_data.items():
-            st.subheader(f"🪑 Mesa {table}")
-
-            col1, col2 = st.columns([3, 1])
+    # 显示所有桌子的订单（包括已完成的，但用颜色区分）
+    for table, orders in orders_data.items():
+        if not orders:
+            continue
+            
+        st.subheader(f"🪑 桌号 {table}")
+        
+        # === 清零按钮（保留） ===
+        col1, col2 = st.columns([4, 1])
+        with col2:
+            if st.button("🧹 清空", key=f"clear-{table}"):
+                current_orders = load_orders()
+                current_orders[table] = []  # 清空该桌所有订单
+                save_orders(current_orders)
+                st.rerun()
+        
+        # 显示该桌所有订单（已完成变红，未完成变白）
+        for idx, order in enumerate(orders):
+            # 根据状态设置颜色
+            color = "red" if order["status"] == "done" else "white"
+            
+            # 使用HTML设置颜色
+            styled_text = f'<span style="color:{color}">• {order["zh"]} × {order["qty"]} (￥{order["price"]})</span>'
+            
+            col1, col2 = st.columns([4, 1])
+            with col1:
+                st.markdown(styled_text, unsafe_allow_html=True)
             with col2:
-                if st.button("🧹 清零", key=f"clear-{table}"):
-                    # 1. 读取数据
+                if st.button("✅", key=f"done-{table}-{idx}"):
+                    # 切换状态：已标记→取消标记，反之亦然
                     current_orders = load_orders()
-                    # 2. 清空该桌
-                    current_orders[table] = []
-                    # 3. 立即保存回文件
+                    if current_orders[table][idx]["status"] == "done":
+                        current_orders[table][idx]["status"] = "pending"
+                    else:
+                        current_orders[table][idx]["status"] = "done"
                     save_orders(current_orders)
-                    st.rerun()  # 立即刷新界面
+                    st.rerun()
 
-            if not orders:
-                st.info("暂无订单")
-            else:
-                for o in orders:
-                    st.write(f"- {o['zh']} {o['es']} × {o['qty']} (€{o['price']})")
-            st.markdown("---")
+        st.markdown("---")
