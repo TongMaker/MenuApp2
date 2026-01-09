@@ -184,50 +184,44 @@ if table_id:
             st.balloons()
 
 # ======================
-# KITCHEN DASHBOARD (厨师看板) - 适配手机UI + 全中文
+# KITCHEN DASHBOARD (厨师看板) - 200%字体 + 按钮间距减半
 # ======================
 else:
-    # === 厨房看板：适配手机UI ===
+    # === 厨房看板：200%字体 + 按钮间距减半 ===
     st.markdown("""
     <style>
     body {
         background-color: #000000 !important;
         color: #ffffff !important;
-        font-size: 1.2rem !important;
+        font-size: 2.4rem !important; /* 200%更大 (1.2 * 2 = 2.4) */
     }
     .stButton>button {
         color: #ffffff !important;
         background-color: #333333 !important;
         font-size: 1.2rem !important;
         padding: 0.8rem 1.2rem !important;
-        margin: 0.5rem 0 !important;
+        margin: 0.25rem 0 !important; /* 按钮间距减半 (0.5 → 0.25) */
     }
     .stMarkdown {
         color: #ffffff !important;
-        font-size: 1.2rem !important;
+        font-size: 2.4rem !important;
     }
     .stSubheader {
-        font-size: 1.3rem !important;
-        margin-top: 1rem !important;
+        font-size: 2.6rem !important;
+        margin-top: 0.5rem !important;
     }
     .stHorizontalRule {
-        margin: 1rem 0 !important;
-    }
-    .stExpander {
-        font-size: 1.2rem !important;
+        margin: 0.5rem 0 !important; /* 分隔线间距减半 */
     }
     .stColumns {
-        gap: 1rem !important;
+        gap: 0.5rem !important; /* 列间距减半 */
     }
     @media (max-width: 768px) {
         .stApp {
-            padding: 1rem !important;
-        }
-        .stColumns {
-            gap: 0.5rem !important;
+            padding: 0.5rem !important;
         }
         .stButton>button {
-            padding: 0.6rem 1rem !important;
+            padding: 0.5rem 1rem !important;
         }
     }
     </style>
@@ -250,7 +244,7 @@ else:
             
         st.subheader(f"🪑 桌号 {table}")
         
-        # === 清零按钮（适配手机） ===
+        # === 清零按钮（间距减半） ===
         col1, col2 = st.columns([4, 1])
         with col2:
             if st.button("🧹 清空", key=f"clear-{table}"):
