@@ -72,15 +72,15 @@ menu = {
         {"es": "Arroz Kung Pao", "zh": "宫保鸡丁饭", "desc": "Pollo picante con cacahuetes.", "price": "8,50 €", "img": "images/宫保鸡丁饭.jpg"}
     ],
     "🥤 Bebidas": [
-        {"es": "Cerveza Mahou", "zh": "", "desc": "330 ml", "price": "2,80 €", "img": ""},
-        {"es": "Mahou 5 Estrellas", "zh": "", "desc": "330 ml", "price": "2,80 €", "img": ""},
-        {"es": "Mahou sin alcohol", "zh": "", "desc": "330 ml", "price": "2,80 €", "img": ""},
-        {"es": "Cerveza tshindao", "zh": "", "desc": "330 ml", "price": "3,50 €", "img": ""},
-        {"es": "Coca-Cola", "zh": "", "desc": "330 ml", "price": "2,80 €", "img": ""},
-        {"es": "Agua mineral", "zh": "", "desc": "500 ml", "price": "2,50 €", "img": ""},
-        {"es": "Café", "zh": "", "desc": "Delta", "price": "1,80 €", "img": ""},
-        {"es": "Infusión", "zh": "", "desc": "Té verde", "price": "1,80 €", "img": ""},
-        {"es": "Te chino", "zh": "", "desc": "Té verde", "price": "2,80 €", "img": ""}
+        {"es": "Cerveza Mahou grifo", "zh": "mahou啤酒管", "desc": "330 ml", "price": "2,80 €", "img": ""},
+        {"es": "Mahou 5 Estrellas", "zh": "mahou五星啤酒", "desc": "330 ml", "price": "2,80 €", "img": ""},
+        {"es": "Mahou sin alcohol", "zh": "无酒精啤酒", "desc": "330 ml", "price": "2,80 €", "img": ""},
+        {"es": "Cerveza tshindao", "zh": "青岛啤酒", "desc": "330 ml", "price": "3,50 €", "img": ""},
+        {"es": "Coca-Cola", "zh": "可口可乐", "desc": "330 ml", "price": "2,80 €", "img": ""},
+        {"es": "Agua mineral", "zh": "矿泉水", "desc": "500 ml", "price": "2,50 €", "img": ""},
+        {"es": "Café", "zh": "咖啡", "desc": "Delta", "price": "1,80 €", "img": ""},
+        {"es": "Infusión", "zh": "茶", "desc": "Té verde", "price": "1,80 €", "img": ""},
+        {"es": "Te chino", "zh": "中国茶", "desc": "Té verde", "price": "2,80 €", "img": ""}
     ]
 }
 
