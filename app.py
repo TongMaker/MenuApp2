@@ -59,7 +59,7 @@ menu = {
         {"es": "Jiaozi en sopa", "zh": "汤水饺", "desc": "Jiaozi de carne y verdura en caldo caliente.", "price": "8,50 €", "img": "images/汤水饺.jpg"},
         {"es": "Empanadillas fritas", "zh": "锅贴", "desc": "Empanadillas crujientes por la base al estilo wok.", "price": "6,95 €", "img": "images/锅贴.jpg"},
         {"es": "Rollito de primavera frita", "zh": "炸春卷", "desc": "Rollito crujientes de verdura.", "price": "6,95 €", "img": "images/春卷.jpg"},
-        {"es": "Pao mo", "zh": "西安泡馍", "desc": "sopa tradicional de pan desmenuzado con ternera estilo Xian”, "price": "12,95 €", "img": "images/西安泡馍.jpg"}
+        {"es": "Pao mo", "zh": "西安泡馍", "desc": "sopa tradicional de pan desmenuzado con ternera estilo Xian", "price": "12,95 €", "img": "images/西安泡馍.jpg"}
     ],
     "🍜 面类 · Tallarines": [
         {"es": "Tallarines Xi’an", "zh": "西安油泼面", "desc": "Fideos anchos con chile, cebolleta y vinagre.", "price": "8,00 €", "img": "images/西安油泼面.jpg"},
