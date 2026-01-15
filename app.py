@@ -65,7 +65,9 @@ menu = {
         {"es": "Tallarines Xi’an", "zh": "西安油泼面", "desc": "Fideos anchos con chile, cebolleta y vinagre.", "price": "8,00 €", "img": "images/西安油泼面.jpg"},
         {"es": "Tallarines Zhajiang", "zh": "炸酱面", "desc": "Fideos con salsa de soja fermentada y cerdo.", "price": "8,50 €", "img": "images/炸酱面.jpg"},
         {"es": "Tallarines 2 en 1", "zh": "二合一面", "desc": "Mezcla Xi’an + Zhajiang.", "price": "9,50 €", "img": "images/二合一面.jpg"},
-        {"es": "Tallarines con ternera", "zh": "牛肉面", "desc": "En caldo casero de ternera.", "price": "9,85 €", "img": "images/牛肉面.jpg"}
+        {"es": "Tallarines con ternera", "zh": "牛肉面", "desc": "En caldo casero de ternera.", "price": "9,85 €", "img": "images/牛肉面.jpg"},
+        {"es": "Tallarines salteado con ternera", "zh": "牛肉炒面", "desc": "Tallarines salteado con ternera.", "price": "8,50 €", "img": "images/牛肉炒面.jpg"},
+        {"es": "Tallarines salteado con verdura", "zh": "素炒面", "desc": "Tallarines salteado con verdura y huevo.", "price": "7,50 €", "img": "images/素炒面.jpg"}
     ],
     "🍚 饭类 · Arroz": [
         {"es": "Arroz tres delicias", "zh": "三鲜炒饭", "desc": "Arroz frito.", "price": "7,50 €", "img": "images/三鲜炒饭.jpg"},
