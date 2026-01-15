@@ -68,9 +68,17 @@ menu = {
         {"es": "Tallarines con ternera", "zh": "牛肉面", "desc": "En caldo casero de ternera.", "price": "9,85 €", "img": "images/牛肉面.jpg"}
     ],
     "🍚 饭类 · Arroz": [
-        {"es": "Arroz tres delicias", "zh": "三鲜炒饭", "desc": "Arroz con gambas, pollo, cerdo y verduras.", "price": "7,50 €", "img": "images/三鲜炒饭.jpg"},
+        {"es": "Arroz tres delicias", "zh": "三鲜炒饭", "desc": "Arroz frito.", "price": "7,50 €", "img": "images/三鲜炒饭.jpg"},
+        {"es": "Arroz tres delicias con gamba", "zh": "三鲜虾仁炒饭", "desc": "Arroz frito.", "price": "8,80 €", "img": "images/三鲜虾仁炒饭.jpg"},
         {"es": "Arroz con ternera", "zh": "牛肉盖饭", "desc": "Ternera salteada con cebolla y pimientos.", "price": "9,90 €", "img": "images/牛肉盖饭.jpg"},
-        {"es": "Arroz Kung Pao", "zh": "宫保鸡丁饭", "desc": "Pollo picante con cacahuetes.", "price": "8,50 €", "img": "images/宫保鸡丁饭.jpg"}
+        {"es": "Arroz Kung Pao", "zh": "宫保鸡丁饭", "desc": "Pollo picante con cacahuetes.", "price": "8,50 €", "img": "images/宫保鸡丁饭.jpg"}，
+        {"es": "Arroz bolas carne agridulce", "zh": "糖醋鸡丸饭", "desc": "bolas de carne de pollo a la salsa agridulce.", "price": "8,50 €", "img": "images/糖醋鸡丸饭.jpg"}，
+        {"es": "Arroz blanco", "zh": "米饭", "desc": "Arroz blanco al vapor.", "price": "3,00 €", "img": "images/米饭.jpg"}
+    ],
+    "🍚 小菜 · Aperitivos": [
+        {"es": "Estofado racion pequeño(ternera, patita de pollo, callos)", "zh": "小份卤煮(牛肉, 鸡爪, 牛肚)", "desc": "Estofado chino en salsa de soja racion pequeño.", "price": "3,80 €", "img": "images/小份卤煮.jpg"},
+        {"es": "Ternera estofado", "zh": "卤牛肉", "desc": "Ternera estofada chino en salsa de soja racion grande.", "price": "12,50 €", "img": "images/卤牛肉.jpg"},
+        {"es": "platito aperitivo", "zh": "小凉菜", "desc": "Aperitivo verdura.", "price": "2,50 €", "img": "images/小凉菜.jpg"}
     ],
     "🥤 Bebidas": [
         {"es": "Cerveza Mahou grifo", "zh": "mahou啤酒管", "desc": "330 ml", "price": "2,80 €", "img": ""},
