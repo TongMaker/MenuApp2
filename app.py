@@ -83,11 +83,12 @@ menu = {
         {"es": "platito aperitivo", "zh": "小凉菜", "desc": "Aperitivo verdura.", "price": "2,50 €", "img": "images/小凉菜.jpg"}
     ],
     "🥤 Bebidas": [
-        {"es": "Cerveza Mahou grifo", "zh": "mahou啤酒管", "desc": "330 ml", "price": "2,80 €", "img": ""},
+        {"es": "Cerveza Mahou grifo", "zh": "mahou啤酒管", "desc": "", "price": "2,80 €", "img": ""},
+        {"es": "Cerveza Mahou Radley limon grifo", "zh": "mahou柠檬啤酒管", "desc": "", "price": "2,80 €", "img": ""},
         {"es": "Mahou 5 Estrellas", "zh": "mahou五星啤酒", "desc": "330 ml", "price": "2,80 €", "img": ""},
         {"es": "Mahou sin alcohol", "zh": "无酒精啤酒", "desc": "330 ml", "price": "2,80 €", "img": ""},
         {"es": "Cerveza tshindao", "zh": "青岛啤酒", "desc": "330 ml", "price": "3,50 €", "img": ""},
-        {"es": "Coca-Cola", "zh": "可口可乐", "desc": "330 ml", "price": "2,80 €", "img": ""},
+        {"es": "Refresco variados", "zh": "各种饮料", "cocacola, acuarius, fanta, etc": "330 ml", "price": "2,80 €", "img": ""},
         {"es": "Agua mineral", "zh": "矿泉水", "desc": "500 ml", "price": "2,50 €", "img": ""},
         {"es": "Café", "zh": "咖啡", "desc": "Delta", "price": "1,80 €", "img": ""},
         {"es": "Infusión", "zh": "茶", "desc": "Té verde", "price": "1,80 €", "img": ""},
