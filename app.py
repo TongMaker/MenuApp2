@@ -54,7 +54,7 @@ table_id = params.get("table", [None])[0] # 字符串形式，保证 10~30桌正
 # ======================
 menu = {
     "🥟 包饺馍 · Bao y empanadillas": [
-        {"es": "Rougamo de Cerdo", "zh": "肉夹馍", "desc": "Hamburguesa estilo Xi’an rellena de cerdo cocido con especias.", "price": "5,85 €", "img": "images/肉夹馍.jpg"},
+        {"es": "Rougamo de Cerdo", "zh": "肉夹馍", "desc": "Hamburguesa estilo Xi’an rellena de cerdo cocido con especias.", "price": "5,95 €", "img": "images/肉夹馍.jpg"},
         {"es": "Jiaozi fritas", "zh": "煎饺", "desc": "Raviolis de cerdo y verduras, fritos o al vapor.", "price": "6,95 €", "img": "images/煎饺.jpg"},
         {"es": "Jiaozi en sopa", "zh": "汤水饺", "desc": "Jiaozi de carne y verdura en caldo caliente.", "price": "8,50 €", "img": "images/汤水饺.jpg"},
         {"es": "Empanadillas fritas", "zh": "锅贴", "desc": "Empanadillas crujientes por la base al estilo wok.", "price": "6,95 €", "img": "images/锅贴.jpg"},
