@@ -53,6 +53,11 @@ table_id = params.get("table", [None])[0] # 字符串形式，保证 10~30桌正
 # MENU DATA (中西双语)
 # ======================
 menu = {
+    "🥟🍜🍚 套餐 · Menú": [
+        {"es": "Menú Rougamo + Sopa jiaozi + refresco", "zh": "肉夹馍+水饺+饮料", "desc": "", "price": "12,95 €", "img": "images/套餐1.jpg"},
+        {"es": "Menú Sopa agripicante + Arroz 3 delicia + refresco", "zh": "酸辣汤+三鲜炒饭+饮料", "desc": "", "price": "12,95 €", "img": "images/套餐2.jpg"},
+        {"es": "Menú Rollito prim + Tallarines Ternera + refresco", "zh": "春卷+牛肉面+饮料", "desc": "", "price": "14,95 €", "img": "images/套餐3.jpg"}
+    ],
     "🥟 包饺馍 · Bao y empanadillas": [
         {"es": "Rougamo de Cerdo", "zh": "肉夹馍", "desc": "Hamburguesa estilo Xi’an rellena de cerdo cocido con especias.", "price": "5,95 €", "img": "images/肉夹馍.jpg"},
         {"es": "Jiaozi fritas", "zh": "煎饺", "desc": "Raviolis de cerdo y verduras, fritos o al vapor.", "price": "6,95 €", "img": "images/煎饺.jpg"},
