@@ -64,13 +64,15 @@ menu = {
         {"es": "Jiaozi en sopa", "zh": "汤水饺", "desc": "Jiaozi de carne y verdura en caldo caliente.", "price": "8,50 €", "img": "images/汤水饺.jpg"},
         {"es": "Empanadillas fritas", "zh": "锅贴", "desc": "Empanadillas crujientes por la base al estilo wok.", "price": "6,95 €", "img": "images/锅贴.jpg"},
         {"es": "Rollito de primavera frita", "zh": "炸春卷", "desc": "Rollito crujientes de verdura.", "price": "6,95 €", "img": "images/春卷.jpg"},
-        {"es": "Pao mo", "zh": "西安泡馍", "desc": "sopa tradicional de pan desmenuzado con ternera estilo Xian", "price": "12,95 €", "img": "images/xianpaomo.jpg"}
+        {"es": "Pao mo", "zh": "西安泡馍", "desc": "sopa tradicional de pan desmenuzado con ternera estilo Xian", "price": "12,95 €", "img": "images/xianpaomo.jpg"}，
+        {"es": "Sopa agripicante", "zh": "酸辣汤", "desc": "Sopa agripicante", "price": "5,50 €", "img": "images/酸辣汤.jpg"}
     ],
     "🍜 面类 · Tallarines": [
         {"es": "Tallarines Xi’an", "zh": "西安油泼面", "desc": "Fideos anchos con chile, cebolleta y vinagre.", "price": "8,00 €", "img": "images/西安油泼面.jpg"},
         {"es": "Tallarines Zhajiang", "zh": "炸酱面", "desc": "Fideos con salsa de soja fermentada y cerdo.", "price": "8,50 €", "img": "images/炸酱面.jpg"},
         {"es": "Tallarines 2 en 1", "zh": "二合一面", "desc": "Mezcla Xi’an + Zhajiang.", "price": "9,50 €", "img": "images/二合一面.jpg"},
         {"es": "Tallarines con ternera", "zh": "牛肉面", "desc": "En caldo casero de ternera.", "price": "9,85 €", "img": "images/牛肉面.jpg"},
+        {"es": "Tallarines con ternera", "zh": "红烧排骨面", "desc": "En caldo casero de costilla.", "price": "9,50 €", "img": "images/红烧排骨面.jpg"},
         {"es": "Tallarines salteado con ternera", "zh": "牛肉炒面", "desc": "Tallarines salteado con ternera.", "price": "8,50 €", "img": "images/牛肉炒面.jpg"},
         {"es": "Tallarines salteado con verdura", "zh": "素炒面", "desc": "Tallarines salteado con verdura y huevo.", "price": "7,50 €", "img": "images/素炒面.jpg"}
     ],
