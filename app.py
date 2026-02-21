@@ -89,9 +89,13 @@ menu = {
         {"es": "Ternera estofado", "zh": "卤牛肉", "desc": "Ternera estofada chino en salsa de soja racion grande.", "price": "12,50 €", "img": "images/卤牛肉.jpg"},
         {"es": "platito aperitivo", "zh": "小凉菜", "desc": "Aperitivo verdura.", "price": "2,50 €", "img": "images/小凉菜.jpg"}
     ],
+    "🥤 Postre": [
+        {"es": "Mochi Mango", "zh": "Mochi Mango", "desc": "", "price": "2,95 €", "img": ""},
+        {"es": "Mochi Coco", "zh": "Mochi Coco", "desc": "", "price": "2,95 €", "img": ""}
+    ]
     "🥤 Bebidas": [
-        {"es": "Cerveza Mahou grifo", "zh": "mahou啤酒管", "desc": "", "price": "2,80 €", "img": ""},
-        {"es": "Cerveza Mahou Radley limon grifo", "zh": "mahou柠檬啤酒管", "desc": "", "price": "2,80 €", "img": ""},
+        {"es": "Cerveza Mahou grifo", "zh": "mahou扎啤", "desc": "", "price": "2,80 €", "img": ""},
+        {"es": "Cerveza Mahou Radley limon grifo", "zh": "mahou柠檬扎啤", "desc": "", "price": "2,80 €", "img": ""},
         {"es": "Mahou 5 Estrellas", "zh": "mahou五星啤酒", "desc": "330 ml", "price": "2,80 €", "img": ""},
         {"es": "Mahou sin alcohol", "zh": "无酒精啤酒", "desc": "330 ml", "price": "2,80 €", "img": ""},
         {"es": "Cerveza tshindao", "zh": "青岛啤酒", "desc": "330 ml", "price": "3,50 €", "img": ""},
