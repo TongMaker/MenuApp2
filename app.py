@@ -92,7 +92,7 @@ menu = {
     "🥤 Postre": [
         {"es": "Mochi Mango", "zh": "Mochi Mango", "desc": "", "price": "2,95 €", "img": ""},
         {"es": "Mochi Coco", "zh": "Mochi Coco", "desc": "", "price": "2,95 €", "img": ""}
-    ]
+    ],
     "🥤 Bebidas": [
         {"es": "Cerveza Mahou grifo", "zh": "mahou扎啤", "desc": "", "price": "2,80 €", "img": ""},
         {"es": "Cerveza Mahou Radley limon grifo", "zh": "mahou柠檬扎啤", "desc": "", "price": "2,80 €", "img": ""},
