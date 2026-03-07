@@ -54,9 +54,9 @@ table_id = params.get("table", [None])[0] # 字符串形式，保证 10~30桌正
 # ======================
 menu = {
     "🥟🍜🍚 套餐 · Menú": [
-        {"es": "Menú A Rougamo + Sopa jiaozi + refresco", "zh": "A 肉夹馍+水饺+饮料", "desc": "Inclusivamente de martes a viernes", "price": "12,95 €", "img": "images/套餐1.jpg"},
-        {"es": "Menú B Sopa agripicante + Arroz 3 delicia + refresco", "zh": "B 酸辣汤+三鲜炒饭+饮料", "desc": "Inclusivamente de martes a viernes", "price": "12,95 €", "img": "images/套餐2.jpg"},
-        {"es": "Menú C Rollito prim + Tallarines Ternera + refresco", "zh": "C 春卷+牛肉面+饮料", "desc": "Inclusivamente de martes a viernes", "price": "14,95 €", "img": "images/套餐3.jpg"}
+        {"es": "Menú A Rougamo + Sopa jiaozi + refresco", "zh": "A 肉夹馍+水饺+饮料", "desc": "Inclusivamente de martes a sábado", "price": "12,95 €", "img": "images/套餐1.jpg"},
+        {"es": "Menú B Sopa agripicante + Arroz 3 delicia + refresco", "zh": "B 酸辣汤+三鲜炒饭+饮料", "desc": "Inclusivamente de martes a sábado", "price": "12,95 €", "img": "images/套餐2.jpg"},
+        {"es": "Menú C Rollito prim + Tallarines Ternera + refresco", "zh": "C 春卷+牛肉面+饮料", "desc": "Inclusivamente de martes a sábado", "price": "14,95 €", "img": "images/套餐3.jpg"}
     ],
     "🥟 包饺馍 · Bao y empanadillas": [
         {"es": "Rougamo de Cerdo", "zh": "肉夹馍", "desc": "Hamburguesa estilo Xi’an rellena de cerdo cocido con especias.", "price": "5,95 €", "img": "images/肉夹馍.jpg"},
