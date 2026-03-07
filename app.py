@@ -93,8 +93,8 @@ menu = {
         {"es": "platito aperitivo", "zh": "小凉菜", "desc": "Aperitivo verdura.", "price": "2,50 €", "img": "images/小凉菜.jpg"}
     ],
     "🥤 Postre": [
-        {"es": "Mochi Mango", "zh": "Mochi Mango", "desc": "", "price": "2,95 €", "img": "mochimango.jpg"},
-        {"es": "Mochi Coco", "zh": "Mochi Coco", "desc": "", "price": "2,95 €", "img": "mochicoco.jpg"}
+        {"es": "Mochi Mango", "zh": "Mochi Mango", "desc": "", "price": "2,95 €", "img": "images/mochimango.jpg"},
+        {"es": "Mochi Coco", "zh": "Mochi Coco", "desc": "", "price": "2,95 €", "img": "images/mochicoco.jpg"}
     ],
     "🥤 Bebidas": [
         {"es": "Cerveza Mahou grifo", "zh": "mahou扎啤", "desc": "", "price": "2,80 €", "img": ""},
