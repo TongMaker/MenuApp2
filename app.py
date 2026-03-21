@@ -108,6 +108,7 @@ menu = {
         {"es": "sprite", "zh": "雪碧", "desc": "", "price": "2,80 €", "img": ""},
         {"es": "acuarius", "zh": "acuarius", "desc": "", "price": "2,80 €", "img": ""},
         {"es": "nestea", "zh": "nestea柠檬茶", "desc": "", "price": "2,80 €", "img": ""},
+        {"es": "Zumo COMPAL", "zh": "COMPAL果汁", "desc": "Piña, Naranja, Melocotón, Tomate", "price": "2,50 €", "img": ""},
         {"es": "fanta de naranja", "zh": "橙子芬达", "desc": "", "price": "2,80 €", "img": ""},
         {"es": "Agua mineral", "zh": "矿泉水", "desc": "500 ml", "price": "2,50 €", "img": ""},
         {"es": "Café", "zh": "咖啡", "desc": "Delta", "price": "1,80 €", "img": ""},
