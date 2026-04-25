@@ -1,0 +1,27 @@
+# Core dependencies
+streamlit>=1.52.2
+streamlit-autorefresh>=1.0.1
+python-dateutil>=2.9.0
+pytz>=2025.2
+
+# Data & utilities
+pandas>=2.3.3
+numpy>=2.4.0
+pillow>=12.1.0
+
+# Web & API
+requests>=2.32.5
+certifi>=2026.1.4
+urllib3>=2.6.3
+
+# JSON & serialization
+Jinja2>=3.1.6
+MarkupSafe>=3.0.3
+
+# Development
+click>=8.3.1
+toml>=0.10.2
+
+# Other
+packaging>=25.0
+typing_extensions>=4.15.0

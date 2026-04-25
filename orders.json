@@ -1,0 +1,124 @@
+{
+  "1": [
+    {
+      "zh": "A 肉夹馍+水饺汤+饮料",
+      "es": "Menú A: Rougamo + Sopa jiaozi + Refresco",
+      "qty": 1,
+      "price": "12,95 €",
+      "status": "ordered",
+      "notes": "",
+      "timestamp": "2026-04-25T13:38:57.908988",
+      "order_group": "2026-04-25T13:38:57.908995"
+    },
+    {
+      "zh": "A 肉夹馍+水饺汤+饮料",
+      "es": "Menú A: Rougamo + Sopa jiaozi + Refresco",
+      "qty": 1,
+      "price": "12,95 €",
+      "status": "ordered",
+      "notes": "",
+      "timestamp": "2026-04-25T13:38:58.590865",
+      "order_group": "2026-04-25T13:38:58.590869"
+    },
+    {
+      "zh": "A 肉夹馍+水饺汤+饮料",
+      "es": "Menú A: Rougamo + Sopa jiaozi + Refresco",
+      "qty": 1,
+      "price": "12,95 €",
+      "status": "ordered",
+      "notes": "",
+      "timestamp": "2026-04-25T13:39:00.252507",
+      "order_group": "2026-04-25T13:39:00.252554"
+    }
+  ],
+  "2": [],
+  "3": [],
+  "4": [],
+  "5": [
+    {
+      "zh": "C 春卷+牛肉面+饮料",
+      "es": "Menú C: Rollito prim. + Tallarines Ternera + Refresco",
+      "qty": 1,
+      "price": "14,95 €",
+      "status": "ordered",
+      "notes": "",
+      "timestamp": "2026-04-12T11:37:37.853983",
+      "order_group": "2026-04-12T11:37:37.853992"
+    },
+    {
+      "zh": "B 酸辣汤+三鲜炒饭+饮料",
+      "es": "Menú B: Sopa agripicante + Arroz 3 delicias + Refresco",
+      "qty": 1,
+      "price": "12,95 €",
+      "status": "ordered",
+      "notes": "",
+      "timestamp": "2026-04-12T11:37:40.686344",
+      "order_group": "2026-04-12T11:37:40.686362"
+    },
+    {
+      "zh": "A 肉夹馍+水饺汤+饮料",
+      "es": "Menú A: Rougamo + Sopa jiaozi + Refresco",
+      "qty": 1,
+      "price": "12,95 €",
+      "status": "ordered",
+      "notes": "",
+      "timestamp": "2026-04-12T11:37:47.805226",
+      "order_group": "2026-04-12T11:37:47.805238"
+    },
+    {
+      "zh": "A 肉夹馍+水饺汤+饮料",
+      "es": "Menú A: Rougamo + Sopa jiaozi + Refresco",
+      "qty": 1,
+      "price": "12,95 €",
+      "status": "ordered",
+      "notes": "",
+      "timestamp": "2026-04-12T11:44:48.831478",
+      "order_group": "2026-04-12T11:44:48.831485"
+    },
+    {
+      "zh": "B 酸辣汤+三鲜炒饭+饮料",
+      "es": "Menú B: Sopa agripicante + Arroz 3 delicias + Refresco",
+      "qty": 1,
+      "price": "12,95 €",
+      "status": "ordered",
+      "notes": "",
+      "timestamp": "2026-04-12T11:44:50.946067",
+      "order_group": "2026-04-12T11:44:50.946075"
+    },
+    {
+      "zh": "C 春卷+牛肉面+饮料",
+      "es": "Menú C: Rollito prim. + Tallarines Ternera + Refresco",
+      "qty": 1,
+      "price": "14,95 €",
+      "status": "ordered",
+      "notes": "",
+      "timestamp": "2026-04-12T11:44:52.516088",
+      "order_group": "2026-04-12T11:44:52.516096"
+    }
+  ],
+  "6": [],
+  "7": [],
+  "8": [],
+  "9": [],
+  "10": [],
+  "11": [],
+  "12": [],
+  "13": [],
+  "14": [],
+  "15": [],
+  "16": [],
+  "17": [],
+  "18": [],
+  "19": [],
+  "20": [],
+  "21": [],
+  "22": [],
+  "23": [],
+  "24": [],
+  "25": [],
+  "26": [],
+  "27": [],
+  "28": [],
+  "29": [],
+  "30": []
+}
