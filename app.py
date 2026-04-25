@@ -11,427 +11,504 @@ import time
 st.set_page_config(
     page_title="🔥 Xi'an Gastronomía - Kitchen Hub",
     page_icon="🔥",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="collapsed",
     menu_items=None
 )
 
 ORDERS_FILE = "orders.json"
 
-# Modern Dark Theme CSS
+# Modern Mobile-First Dark Theme CSS
 MODERN_THEME = """
 <style>
 :root {
     --primary: #FF4444;
     --secondary: #FFB800;
-    --dark-bg: #0F0F0F;
-    --card-bg: #1A1A1A;
+    --dark-bg: #080808;
+    --card-bg: #141414;
     --text-primary: #FFFFFF;
-    --text-secondary: #A0A0A0;
-    --success: #00D084;
-    --warning: #FF6B6B;
-    --light-border: rgba(255, 68, 68, 0.15);
+    --text-secondary: #9CA3AF;
+    --success: #10B981;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-accent: rgba(255, 68, 68, 0.3);
 }
 
-* {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-html, body {
-    background: linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 100%);
+html, body, [data-testid="stApp"] {
+    background: var(--dark-bg) !important;
     color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.main {
-    background: transparent;
+/* Hide Streamlit chrome */
+header[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stDecoration"],
+#MainMenu, footer {
+    display: none !important;
+    visibility: hidden !important;
 }
 
-/* Headers */
-h1, h2, h3 {
+/* Block container — centered, phone-friendly max-width */
+.block-container {
+    padding: 0 !important;
+    max-width: 620px !important;
+    margin: 0 auto !important;
+}
+
+.main .block-container {
+    padding-top: 0 !important;
+    padding-bottom: 28px !important;
+}
+
+.main, .main > div {
+    overflow: visible !important;
+}
+
+h1, h2, h3, h4 {
     color: var(--text-primary) !important;
     font-weight: 700 !important;
 }
 
-h1 { font-size: 2.5em !important; letter-spacing: -1px; }
-h2 { font-size: 2em !important; margin-top: 30px !important; }
-
-/* Cards */
-.stCard, .modern-card {
-    background: var(--card-bg) !important;
-    border-radius: 12px !important;
-    border: 1px solid var(--light-border) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    padding: 16px !important;
-    transition: all 0.3s ease !important;
-}
-
-.modern-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(255, 68, 68, 0.2);
-    border: 1px solid rgba(255, 68, 68, 0.3);
-}
-
-/* Menu Item Cards */
-.menu-item-card {
-    background: var(--card-bg);
-    border-radius: 10px;
-    border-left: 4px solid var(--primary);
-    padding: 14px;
-    margin: 10px 0;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.menu-item-card:hover {
-    background: rgba(255, 68, 68, 0.08);
-    transform: translateX(4px);
-    border-left: 4px solid var(--secondary);
-}
-
-/* Buttons */
-.stButton > button {
-    background: linear-gradient(135deg, var(--primary), #FF6666) !important;
-    border: none !important;
-    border-radius: 8px !important;
-    color: white !important;
-    font-weight: 600 !important;
-    padding: 10px 20px !important;
-    box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3) !important;
-    transition: all 0.3s ease !important;
-    font-size: 1.05em !important;
-}
-
-.stButton > button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 68, 68, 0.5) !important;
-}
-
-.stButton > button:active {
-    transform: translateY(0);
-}
-
-/* Secondary buttons */
-.stButton > button[kind="secondary"] {
-    background: rgba(255, 184, 0, 0.2) !important;
-    border: 2px solid var(--secondary) !important;
-    color: var(--secondary) !important;
-    box-shadow: none !important;
-}
-
-.stButton > button[kind="secondary"]:hover {
-    background: rgba(255, 184, 0, 0.3) !important;
-}
-
-/* Input Fields */
-.stNumberInput > div > div > input,
-.stTextInput > div > div > input,
-.stSelectbox > div > div > select {
-    background: var(--card-bg) !important;
-    color: var(--text-primary) !important;
-    border: 2px solid var(--light-border) !important;
-    border-radius: 8px !important;
-    padding: 12px 14px !important;
-    font-size: 1.1em !important;
-}
-
-/* Align quantity input with menu line */
-.stNumberInput {
-    margin-bottom: 0 !important;
-    margin-top: 0 !important;
-}
-
-.stNumberInput > div {
-    margin: 0 !important;
-}
-
-.stNumberInput > div > div {
-    margin: 0 !important;
-    align-items: center !important;
-    display: flex !important;
-}
-
-.stNumberInput > div > div > input:focus,
-.stTextInput > div > div > input:focus,
-.stSelectbox > div > div > select:focus {
-    border: 2px solid var(--primary) !important;
-    box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.1) !important;
-}
-
-/* Expanders */
-.streamlit-expanderHeader {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--light-border) !important;
-    border-radius: 8px !important;
-    color: var(--text-primary) !important;
-    padding: 12px 16px !important;
-    font-weight: 600 !important;
-}
-
-.streamlit-expanderHeader:hover {
-    background: rgba(255, 68, 68, 0.08) !important;
-    border: 1px solid rgba(255, 68, 68, 0.3) !important;
-}
-
-/* Cart Items */
-.cart-item-box {
-    background: rgba(255, 68, 68, 0.05);
-    border: 1px solid rgba(255, 68, 68, 0.2);
-    border-left: 4px solid var(--primary);
-    border-radius: 8px;
-    padding: 12px;
-    margin: 8px 0;
-    transition: all 0.2s ease;
-}
-
-.cart-item-box:hover {
-    background: rgba(255, 68, 68, 0.1);
-}
-
-/* Ordered items - greyed out */
-.cart-item-ordered {
-    background: rgba(0, 208, 132, 0.08);
-    border: 1px solid rgba(0, 208, 132, 0.3);
-    border-left: 4px solid #00D084;
-    border-radius: 8px;
-    padding: 12px;
-    margin: 8px 0;
-    opacity: 0.7;
-    transition: all 0.2s ease;
-}
-
-/* Price Badge */
-.price-badge {
-    background: linear-gradient(135deg, var(--secondary), #FFA500);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 0.95em;
-    display: inline-block;
-}
-
-/* Total Amount */
-.total-box {
-    background: linear-gradient(135deg, var(--primary), #FF6666);
-    color: white;
-    padding: 24px;
-    border-radius: 12px;
+/* ── RESTAURANT HEADER ── */
+.restaurant-header {
+    background: linear-gradient(160deg, #1C0909 0%, #100606 100%);
+    border-bottom: 1px solid rgba(255, 68, 68, 0.2);
+    padding: 22px 16px 18px;
     text-align: center;
-    font-size: 2.2em;
-    font-weight: 800;
-    box-shadow: 0 8px 24px rgba(255, 68, 68, 0.4);
-    margin: 20px 0;
-    letter-spacing: -1px;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Kitchen Dashboard */
-.kitchen-card {
-    background: var(--card-bg);
-    border: 2px solid var(--light-border);
-    border-radius: 12px;
-    padding: 20px;
-    margin: 15px 0;
-    transition: all 0.3s ease;
+.restaurant-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255, 68, 68, 0.12) 0%, transparent 65%);
+    pointer-events: none;
 }
 
-.kitchen-card.completed {
-    opacity: 0.5;
-    border: 2px solid rgba(0, 208, 132, 0.3);
+.restaurant-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #FF4444 25%, #FFB800 75%, transparent 100%);
 }
 
-.order-status-badge {
+.restaurant-name {
+    font-size: 1.55rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #FF6666 0%, #FFB800 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+    margin: 0;
+    position: relative;
+}
+
+.table-badge {
     display: inline-block;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 0.85em;
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.25);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 0.82rem;
     font-weight: 700;
-    margin-right: 8px;
+    color: #FF9999;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    position: relative;
 }
 
-.status-pending {
-    background: rgba(255, 107, 107, 0.2);
-    color: var(--warning);
+/* ── KITCHEN HEADER ── */
+.kitchen-header {
+    background: linear-gradient(160deg, #110A00 0%, #0C0800 100%);
+    border-bottom: 1px solid rgba(255, 184, 0, 0.2);
+    padding: 22px 16px 18px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.status-done {
-    background: rgba(0, 208, 132, 0.2);
-    color: var(--success);
+.kitchen-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255, 184, 0, 0.1) 0%, transparent 65%);
+    pointer-events: none;
 }
 
-/* Section Title */
-.section-header {
-    color: var(--primary);
-    font-size: 1.8em;
-    font-weight: 800;
-    margin: 30px 0 15px 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 3px solid var(--primary);
-    padding-bottom: 10px;
+.kitchen-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #FFB800 25%, #FF4444 75%, transparent 100%);
 }
 
-/* Divider */
-.stDivider {
-    border: 1px solid var(--light-border) !important;
-    opacity: 0.3 !important;
+.kitchen-title {
+    font-size: 1.45rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #FFB800 0%, #FF6644 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.3px;
+    margin: 0;
+    position: relative;
 }
 
-/* Success/Info boxes */
-.stSuccess, .stInfo, .stWarning {
-    background: rgba(0, 208, 132, 0.1) !important;
-    border: 1px solid rgba(0, 208, 132, 0.3) !important;
-    border-radius: 8px !important;
-    color: var(--text-primary) !important;
+.kitchen-subtitle {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.78rem;
+    margin-top: 8px;
+    position: relative;
 }
 
-.stError {
-    background: rgba(255, 107, 107, 0.1) !important;
-    border: 1px solid rgba(255, 107, 107, 0.3) !important;
-    border-radius: 8px !important;
-}
-
-/* Table selector */
-.table-selector {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 10px;
-    margin: 20px 0;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    h1 { font-size: 1.8em !important; }
-    h2 { font-size: 1.5em !important; }
-    .total-box { font-size: 1.8em; padding: 18px; }
-    .section-header { font-size: 1.4em; }
-}
-
-/* Inline layout for quantity and button - same line */
-.stColumns {
-    gap: 8px !important;
-}
-
-.stColumns > div[data-testid="column"] {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    height: auto !important;
-}
-
-/* Quantity input column */
-.stColumns > div[data-testid="column"] .stNumberInput {
-    margin: 0 !important;
-    height: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-}
-
-.stColumns > div[data-testid="column"] .stNumberInput > div {
-    width: 100% !important;
-    margin: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-}
-
-.stColumns > div[data-testid="column"] .stNumberInput input {
-    padding: 8px 10px !important;
-    font-size: 0.95rem !important;
-    height: 40px !important;
-    width: 100% !important;
-}
-
-/* Button column - right aligned */
-.stColumns > div[data-testid="column"]:last-child {
-    justify-content: flex-end !important;
-}
-
-.stColumns > div[data-testid="column"]:last-child .stButton {
-    width: auto !important;
-}
-
-.stColumns > div[data-testid="column"]:last-child .stButton > button {
-    padding: 8px 14px !important;
-    font-size: 1.3rem !important;
-    height: 40px !important;
-    min-width: 50px !important;
-}
-
-/* Mobile-first responsive layout */
-@media (max-width: 640px) {
-    .stColumns > div[data-testid="column"] .stNumberInput input {
-        padding: 6px 8px !important;
-        font-size: 0.9rem !important;
-        height: 36px !important;
-    }
-    
-    .stColumns > div[data-testid="column"]:last-child .stButton > button {
-        padding: 6px 12px !important;
-        font-size: 1.2rem !important;
-        height: 36px !important;
-    }
-}
-
-/* Make tick mark button weightier and prominent */
-.stColumns > div[data-testid="column"]:last-child .stButton > button {
-    font-size: 1.4em !important;
-    font-weight: 900 !important;
-    padding: 14px 20px !important;
-    background: linear-gradient(135deg, #00D084, #00B875) !important;
-    border: 3px solid #00D084 !important;
-    box-shadow: 0 6px 16px rgba(0, 208, 132, 0.4) !important;
-    border-radius: 10px !important;
-    min-height: 50px !important;
-}
-
-.stColumns > div[data-testid="column"]:last-child .stButton > button:hover {
-    transform: translateY(-3px) !important;
-    box-shadow: 0 8px 20px rgba(0, 208, 132, 0.6) !important;
-    background: linear-gradient(135deg, #00B875, #00D084) !important;
-}
-
-/* Sticky tabs at the top */
+/* ── STICKY TABS ── */
 [data-testid="stTabs"] {
     position: sticky !important;
     top: 0 !important;
-    z-index: 1000 !important;
-    background: linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 100%) !important;
-    padding: 12px 20px 0 20px !important;
+    z-index: 999 !important;
+    background: #0D0D0D !important;
+    padding: 8px 8px 0 !important;
     margin: 0 !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
-    border-bottom: 1px solid rgba(255, 68, 68, 0.2) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
+    border-bottom: 1px solid var(--border) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
 }
 
-[data-testid="stTabs"] > button {
+[data-testid="stTabs"] button[role="tab"] {
+    flex: 1 !important;
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    border-bottom: none !important;
+    border-radius: 8px 8px 0 0 !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    padding: 10px 6px !important;
+    transition: all 0.2s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    min-height: 40px !important;
+}
+
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
+    background: linear-gradient(180deg, rgba(255, 68, 68, 0.1) 0%, rgba(255, 68, 68, 0.03) 100%) !important;
+    color: #FF7777 !important;
+    border-color: rgba(255, 68, 68, 0.25) !important;
+    border-bottom-color: #0D0D0D !important;
+}
+
+[data-testid="stTabsContent"] {
+    padding: 12px 12px 0 !important;
+    background: transparent !important;
+}
+
+/* ── SECTION HEADERS ── */
+.section-header {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #FFB800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 16px 2px 8px;
+    border-bottom: 1px solid rgba(255, 184, 0, 0.12);
+    margin-bottom: 8px;
+}
+
+/* ── EXPANDER / MENU ITEMS ── */
+[data-testid="stExpander"] {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    margin: 3px 0 !important;
+    overflow: hidden !important;
+    transition: border-color 0.15s ease !important;
+}
+
+[data-testid="stExpander"]:hover {
+    border-color: rgba(255, 68, 68, 0.2) !important;
+}
+
+details summary {
+    background: var(--card-bg) !important;
+    padding: 11px 14px !important;
+    color: var(--text-primary) !important;
     font-weight: 600 !important;
-    font-size: 1.05rem !important;
-    padding: 12px 20px !important;
-    margin-bottom: 0 !important;
+    font-size: 0.88rem !important;
+    cursor: pointer !important;
+    line-height: 1.4 !important;
 }
 
-@media (max-width: 768px) {
-    [data-testid="stTabs"] {
-        padding: 8px 15px 0 15px !important;
+details[open] > summary {
+    border-bottom: 1px solid var(--border) !important;
+    background: #181818 !important;
+}
+
+details > div {
+    background: #0E0E0E !important;
+    padding: 12px !important;
+}
+
+/* ── BUTTONS ── */
+.stButton > button {
+    background: linear-gradient(135deg, #FF4444, #DD1111) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    color: white !important;
+    font-weight: 700 !important;
+    padding: 12px 16px !important;
+    min-height: 44px !important;
+    font-size: 0.92rem !important;
+    box-shadow: 0 3px 12px rgba(255, 68, 68, 0.28) !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+    width: 100% !important;
+    letter-spacing: 0.2px !important;
+    cursor: pointer !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 5px 18px rgba(255, 68, 68, 0.4) !important;
+}
+
+.stButton > button:active {
+    transform: translateY(1px) !important;
+}
+
+/* Add-to-cart button (last column → green) */
+.stColumns > div[data-testid="column"]:last-child .stButton > button {
+    background: linear-gradient(135deg, #10B981, #047857) !important;
+    box-shadow: 0 3px 12px rgba(16, 185, 129, 0.28) !important;
+    font-size: 1.3rem !important;
+    font-weight: 900 !important;
+    padding: 8px 8px !important;
+    min-height: 44px !important;
+    border-radius: 10px !important;
+}
+
+.stColumns > div[data-testid="column"]:last-child .stButton > button:hover {
+    box-shadow: 0 5px 18px rgba(16, 185, 129, 0.45) !important;
+}
+
+/* ── NUMBER INPUT ── */
+.stNumberInput {
+    margin: 0 !important;
+}
+
+.stNumberInput > div,
+.stNumberInput > div > div {
+    margin: 0 !important;
+}
+
+.stNumberInput > div > div > input {
+    background: #1C1C1C !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    padding: 4px !important;
+    font-size: 0.92rem !important;
+    text-align: center !important;
+    height: 40px !important;
+    font-weight: 600 !important;
+}
+
+.stNumberInput > div > div > input:focus {
+    border-color: rgba(255, 68, 68, 0.4) !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* ── TEXT INPUT ── */
+.stTextInput > div > div > input {
+    background: #1C1C1C !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    font-size: 0.87rem !important;
+    height: 40px !important;
+}
+
+.stTextInput > div > div > input::placeholder {
+    color: rgba(255, 255, 255, 0.22) !important;
+}
+
+.stTextInput > div > div > input:focus {
+    border-color: rgba(255, 68, 68, 0.4) !important;
+    box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.06) !important;
+}
+
+.stTextInput label,
+.stNumberInput label {
+    color: rgba(255, 255, 255, 0.35) !important;
+    font-size: 0.75rem !important;
+    margin-bottom: 2px !important;
+}
+
+/* ── CART ITEMS ── */
+.cart-item-box {
+    background: rgba(255, 68, 68, 0.04);
+    border: 1px solid rgba(255, 68, 68, 0.15);
+    border-left: 3px solid #FF4444;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 6px 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.cart-item-ordered {
+    background: rgba(16, 185, 129, 0.04);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    border-left: 3px solid #10B981;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 6px 0;
+    opacity: 0.72;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* ── PRICE BADGE ── */
+.price-badge {
+    background: linear-gradient(135deg, #FFB800, #E07000);
+    color: white;
+    padding: 2px 9px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.84rem;
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 0 2px 5px rgba(200, 100, 0, 0.25);
+}
+
+/* ── TOTAL BOX ── */
+.total-box {
+    background: linear-gradient(135deg, #FF4444, #CC0000);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 1.65rem;
+    font-weight: 800;
+    box-shadow: 0 6px 20px rgba(255, 68, 68, 0.3);
+    margin: 14px 0;
+    letter-spacing: -1px;
+}
+
+/* ── KITCHEN CARD ── */
+.kitchen-card {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 10px 0;
+}
+
+.kitchen-card h3 {
+    margin: 0 0 2px 0 !important;
+    font-size: 1rem !important;
+    color: #FFB800 !important;
+    font-weight: 800 !important;
+}
+
+/* ── STATUS BADGES ── */
+.order-status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 4px;
+    letter-spacing: 0.3px;
+}
+
+.status-pending {
+    background: rgba(255, 68, 68, 0.1);
+    color: #FF8080;
+    border: 1px solid rgba(255, 68, 68, 0.18);
+}
+
+.status-done {
+    background: rgba(16, 185, 129, 0.1);
+    color: #34D399;
+    border: 1px solid rgba(16, 185, 129, 0.18);
+}
+
+/* ── METRICS ── */
+[data-testid="stMetric"] {
+    background: #141414 !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 12px !important;
+    padding: 10px 8px !important;
+    text-align: center !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #FFFFFF !important;
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+}
+
+[data-testid="stMetricLabel"] {
+    color: rgba(255, 255, 255, 0.4) !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* ── ALERTS ── */
+.stSuccess, .stInfo, .stWarning, .stError {
+    border-radius: 10px !important;
+}
+
+/* ── DIVIDERS ── */
+hr {
+    border: none !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    margin: 12px 0 !important;
+}
+
+/* ── COLUMNS ── */
+[data-testid="stHorizontalBlock"] {
+    gap: 6px !important;
+    align-items: center !important;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 68, 68, 0.25); border-radius: 3px; }
+
+/* ── MOBILE BREAKPOINTS ── */
+@media (max-width: 480px) {
+    .restaurant-name { font-size: 1.3rem; }
+    .kitchen-title { font-size: 1.2rem; }
+    .total-box { font-size: 1.45rem; padding: 14px 16px; }
+    details summary { font-size: 0.83rem !important; padding: 10px 12px !important; }
+    [data-testid="stTabsContent"] { padding: 8px !important; }
+    .cart-item-box, .cart-item-ordered { padding: 10px 12px; }
+}
+
+@media (max-width: 360px) {
+    .restaurant-name { font-size: 1.1rem; }
+    [data-testid="stTabs"] button[role="tab"] {
+        font-size: 0.75rem !important;
+        padding: 8px 4px !important;
     }
-
-    [data-testid="stTabs"] > button {
-        font-size: 0.95rem !important;
-        padding: 10px 16px !important;
-    }
+    .total-box { font-size: 1.3rem; }
 }
-
-/* Ensure parent containers allow sticky positioning */
-.main, .main > div, .block-container {
-    overflow: visible !important;
-}
-
-/* Remove the fixed padding since we're using sticky */
-.main .block-container {
-    padding-top: 0 !important;
-}
-
 </style>
 """
 
@@ -576,7 +653,12 @@ table_id = params.get("table", [None])[0]
 # CUSTOMER PAGE
 # ==================
 if table_id:
-    st.title(f"🍽️ MESA {table_id}")
+    st.markdown(f"""
+    <div class="restaurant-header">
+        <div class="restaurant-name">🔥 XI'AN GASTRONOMÍA</div>
+        <div class="table-badge">🪑 Mesa {table_id}</div>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Initialize cart for tab count
     cart_key = f"cart_{table_id}"
@@ -593,9 +675,6 @@ if table_id:
     # MENU TAB
     # ==================
     with tab_menu:
-        st.markdown("*Haz tu pedido / 請點餐*")
-        st.divider()
-        
         # Display menu
         all_dishes = get_all_dishes()
         filtered_dishes = all_dishes
@@ -608,11 +687,11 @@ if table_id:
         
         for section in menu.keys():
             if section in grouped and grouped[section]:
-                st.markdown(f"### {section}", help="Click to expand menu items")
+                st.markdown(f'<div class="section-header">{section}</div>', unsafe_allow_html=True)
             
             for dish in grouped[section]:
                 with st.container():
-                    col_main, col_action = st.columns([4, 1])
+                    col_main, col_action = st.columns([3, 2])
                     
                     with col_main:
                         title = f"{dish['zh']} • {dish['es']}"
@@ -631,7 +710,7 @@ if table_id:
                                 st.write(f"**📝 {dish['desc']}**")
                     
                     with col_action:
-                        col_qty, col_btn = st.columns([2, 1])
+                        col_qty, col_btn = st.columns([3, 2])
                         with col_qty:
                             qty = st.number_input(
                                 "",
@@ -751,8 +830,12 @@ if table_id:
 # KITCHEN DASHBOARD
 # ==================
 else:
-    st.title("🔥 COCINA - PANEL DE CONTROL")
-    st.markdown("*Haz clic en ✅ para marcar como listo / 再点恢复*")
+    st.markdown("""
+    <div class="kitchen-header">
+        <div class="kitchen-title">🔥 COCINA — PANEL DE CONTROL</div>
+        <div class="kitchen-subtitle">Haz clic en ✅ para marcar como listo / 再点恢复</div>
+    </div>
+    """, unsafe_allow_html=True)
     st.divider()
     
     # Auto-refresh
