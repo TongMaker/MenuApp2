@@ -50,10 +50,10 @@ header[data-testid="stHeader"],
     visibility: hidden !important;
 }
 
-/* Block container — centered, phone-friendly max-width */
+/* Block container — centered, desktop-friendly max-width */
 .block-container {
-    padding: 0 !important;
-    max-width: 620px !important;
+    padding: 0 10px !important;
+    max-width: 1200px !important;
     margin: 0 auto !important;
 }
 
@@ -66,9 +66,61 @@ header[data-testid="stHeader"],
     overflow: visible !important;
 }
 
+/* View mode helpers */
+body:has(.kitchen-mode) {
+    height: 100vh;
+    overflow: hidden;
+}
+
+body:has(.kitchen-mode) [data-testid="stAppViewContainer"],
+body:has(.kitchen-mode) [data-testid="stApp"] {
+    height: 100vh;
+}
+
+body:has(.kitchen-mode) .block-container {
+    height: 100vh;
+    padding-bottom: 0 !important;
+}
+
+body:has(.kitchen-mode) .main {
+    height: 100vh;
+    overflow: hidden;
+}
+
+body:has(.kitchen-mode) div[data-testid="column"]:has(.kitchen-scroll-marker) {
+    height: calc(100vh - 250px);
+    overflow-y: auto;
+    padding-right: 6px;
+    padding-bottom: 12px;
+}
+
+body:has(.customer-mode) div[data-testid="column"]:has(.cart-sticky-marker) {
+    position: sticky;
+    top: 10px;
+    align-self: flex-start;
+    max-height: calc(100vh - 20px);
+    overflow-y: auto;
+    padding-bottom: 14px;
+}
+
+@media (max-width: 900px) {
+    body:has(.customer-mode) div[data-testid="column"]:has(.cart-sticky-marker) {
+        position: static;
+        max-height: none;
+        overflow: visible;
+    }
+}
+
 h1, h2, h3, h4 {
     color: var(--text-primary) !important;
     font-weight: 700 !important;
+}
+
+.customer-mode,
+.kitchen-mode,
+.cart-sticky-marker,
+.kitchen-scroll-marker {
+    display: none;
 }
 
 /* ── RESTAURANT HEADER ── */
@@ -213,14 +265,14 @@ h1, h2, h3, h4 {
 
 /* ── SECTION HEADERS ── */
 .section-header {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 800;
     color: #FFB800;
     text-transform: uppercase;
     letter-spacing: 2px;
-    padding: 16px 2px 8px;
+    padding: 10px 2px 6px;
     border-bottom: 1px solid rgba(255, 184, 0, 0.12);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 /* ── EXPANDER / MENU ITEMS ── */
@@ -239,10 +291,10 @@ h1, h2, h3, h4 {
 
 details summary {
     background: var(--card-bg) !important;
-    padding: 11px 14px !important;
+    padding: 9px 12px !important;
     color: var(--text-primary) !important;
     font-weight: 600 !important;
-    font-size: 0.88rem !important;
+    font-size: 0.84rem !important;
     cursor: pointer !important;
     line-height: 1.4 !important;
 }
@@ -254,7 +306,7 @@ details[open] > summary {
 
 details > div {
     background: #0E0E0E !important;
-    padding: 12px !important;
+    padding: 10px !important;
 }
 
 /* ── BUTTONS ── */
@@ -264,10 +316,10 @@ details > div {
     border-radius: 10px !important;
     color: white !important;
     font-weight: 700 !important;
-    padding: 12px 16px !important;
-    min-height: 44px !important;
-    font-size: 0.92rem !important;
-    box-shadow: 0 3px 12px rgba(255, 68, 68, 0.28) !important;
+    padding: 10px 12px !important;
+    min-height: 40px !important;
+    font-size: 0.86rem !important;
+    box-shadow: 0 2px 10px rgba(255, 68, 68, 0.25) !important;
     transition: transform 0.15s ease, box-shadow 0.15s ease !important;
     width: 100% !important;
     letter-spacing: 0.2px !important;
@@ -280,6 +332,28 @@ details > div {
 }
 
 .stButton > button:active {
+    transform: translateY(1px) !important;
+}
+
+/* Primary confirm button */
+.stButton > button[kind="primary"],
+.stButton > button[data-testid="baseButton-primary"] {
+    background: linear-gradient(135deg, #10B981, #047857) !important;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35) !important;
+    font-size: 1.02rem !important;
+    font-weight: 800 !important;
+    padding: 14px 18px !important;
+    border-radius: 14px !important;
+}
+
+.stButton > button[kind="primary"]:hover,
+.stButton > button[data-testid="baseButton-primary"]:hover {
+    box-shadow: 0 10px 24px rgba(16, 185, 129, 0.5) !important;
+    transform: translateY(-2px) !important;
+}
+
+.stButton > button[kind="primary"]:active,
+.stButton > button[data-testid="baseButton-primary"]:active {
     transform: translateY(1px) !important;
 }
 
@@ -314,9 +388,9 @@ details > div {
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 8px !important;
     padding: 4px !important;
-    font-size: 0.92rem !important;
+    font-size: 0.85rem !important;
     text-align: center !important;
-    height: 40px !important;
+    height: 34px !important;
     font-weight: 600 !important;
 }
 
@@ -332,9 +406,9 @@ details > div {
     color: #FFFFFF !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 8px !important;
-    padding: 8px 12px !important;
-    font-size: 0.87rem !important;
-    height: 40px !important;
+    padding: 6px 10px !important;
+    font-size: 0.82rem !important;
+    height: 34px !important;
 }
 
 .stTextInput > div > div > input::placeholder {
@@ -349,8 +423,8 @@ details > div {
 .stTextInput label,
 .stNumberInput label {
     color: rgba(255, 255, 255, 0.35) !important;
-    font-size: 0.75rem !important;
-    margin-bottom: 2px !important;
+    font-size: 0.7rem !important;
+    margin-bottom: 1px !important;
 }
 
 /* ── CART ITEMS ── */
@@ -359,10 +433,10 @@ details > div {
     border: 1px solid rgba(255, 68, 68, 0.15);
     border-left: 3px solid #FF4444;
     border-radius: 10px;
-    padding: 12px 14px;
-    margin: 6px 0;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    padding: 8px 10px;
+    margin: 4px 0;
+    font-size: 0.82rem;
+    line-height: 1.4;
 }
 
 .cart-item-ordered {
@@ -370,11 +444,11 @@ details > div {
     border: 1px solid rgba(16, 185, 129, 0.15);
     border-left: 3px solid #10B981;
     border-radius: 10px;
-    padding: 12px 14px;
-    margin: 6px 0;
+    padding: 8px 10px;
+    margin: 4px 0;
     opacity: 0.72;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.82rem;
+    line-height: 1.4;
 }
 
 /* ── PRICE BADGE ── */
@@ -394,13 +468,13 @@ details > div {
 .total-box {
     background: linear-gradient(135deg, #FF4444, #CC0000);
     color: white;
-    padding: 16px 20px;
-    border-radius: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
     text-align: center;
-    font-size: 1.65rem;
+    font-size: 1.3rem;
     font-weight: 800;
     box-shadow: 0 6px 20px rgba(255, 68, 68, 0.3);
-    margin: 14px 0;
+    margin: 10px 0;
     letter-spacing: -1px;
 }
 
@@ -409,23 +483,28 @@ details > div {
     background: #141414;
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 12px;
-    padding: 14px 16px;
-    margin: 10px 0;
+    padding: 10px 12px;
+    margin: 6px 0;
 }
 
 .kitchen-card h3 {
     margin: 0 0 2px 0 !important;
-    font-size: 1rem !important;
+    font-size: 0.92rem !important;
     color: #FFB800 !important;
     font-weight: 800 !important;
+}
+
+.kitchen-card small {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.45);
 }
 
 /* ── STATUS BADGES ── */
 .order-status-badge {
     display: inline-block;
-    padding: 2px 8px;
+    padding: 1px 6px;
     border-radius: 12px;
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     font-weight: 700;
     vertical-align: middle;
     margin-left: 4px;
@@ -477,12 +556,12 @@ details > div {
 hr {
     border: none !important;
     border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-    margin: 12px 0 !important;
+    margin: 8px 0 !important;
 }
 
 /* ── COLUMNS ── */
 [data-testid="stHorizontalBlock"] {
-    gap: 6px !important;
+    gap: 4px !important;
     align-items: center !important;
 }
 
@@ -495,10 +574,10 @@ hr {
 @media (max-width: 480px) {
     .restaurant-name { font-size: 1.3rem; }
     .kitchen-title { font-size: 1.2rem; }
-    .total-box { font-size: 1.45rem; padding: 14px 16px; }
-    details summary { font-size: 0.83rem !important; padding: 10px 12px !important; }
+    .total-box { font-size: 1.2rem; padding: 12px 12px; }
+    details summary { font-size: 0.8rem !important; padding: 8px 10px !important; }
     [data-testid="stTabsContent"] { padding: 8px !important; }
-    .cart-item-box, .cart-item-ordered { padding: 10px 12px; }
+    .cart-item-box, .cart-item-ordered { padding: 8px 10px; }
 }
 
 @media (max-width: 360px) {
@@ -659,6 +738,7 @@ if table_id:
         <div class="table-badge">🪑 Mesa {table_id}</div>
     </div>
     """, unsafe_allow_html=True)
+    st.markdown('<div class="customer-mode"></div>', unsafe_allow_html=True)
     
     # Initialize cart for tab count
     cart_key = f"cart_{table_id}"
@@ -668,13 +748,13 @@ if table_id:
     cart = st.session_state[cart_key]
     pending_count = len([item for item in cart if item.get("status") == "pending"])
     
-    # Create STICKY TABS at the top
-    tab_menu, tab_cart = st.tabs([f"📋 MENÚ", f"🛒 CARRITO ({pending_count})"])
+    col_menu, col_cart = st.columns([3, 1], gap="large")
     
     # ==================
     # MENU TAB
     # ==================
-    with tab_menu:
+    with col_menu:
+        st.markdown('<div class="section-header">📋 MENÚ</div>', unsafe_allow_html=True)
         # Display menu
         all_dishes = get_all_dishes()
         filtered_dishes = all_dishes
@@ -737,7 +817,9 @@ if table_id:
     # ==================
     # CART TAB
     # ==================
-    with tab_cart:
+    with col_cart:
+        st.markdown('<div class="cart-sticky-marker"></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="section-header">🛒 CARRITO ({pending_count})</div>', unsafe_allow_html=True)
         # Separate ordered and pending items
         ordered_items = [item for item in cart if item.get("status") == "ordered"]
         pending_items = [item for item in cart if item.get("status") == "pending"]
@@ -747,7 +829,7 @@ if table_id:
         else:
             # Display pending items (new orders)
             if pending_items:
-                st.markdown("### 📝 PEDIDO ACTUAL")
+                st.markdown('<div class="section-header">📝 Pedido actual</div>', unsafe_allow_html=True)
                 pending_total = 0
                 for idx, item in enumerate(pending_items):
                     price_value = parse_price(item["price"])
@@ -788,7 +870,7 @@ if table_id:
                         st.rerun()
                 
                 with col_confirm:
-                    if st.button("✅ CONFIRMAR PEDIDO", use_container_width=True, key="confirm_cart"):
+                    if st.button("✅ CONFIRMAR PEDIDO", use_container_width=True, key="confirm_cart", type="primary"):
                         # Mark pending items as ordered
                         for item in pending_items:
                             item["status"] = "ordered"
@@ -811,7 +893,7 @@ if table_id:
             # Display ordered items (history)
             if ordered_items:
                 st.divider()
-                st.markdown("### ✅ PEDIDOS CONFIRMADOS")
+                st.markdown('<div class="section-header">✅ Pedidos confirmados</div>', unsafe_allow_html=True)
                 ordered_total = 0
                 for idx, item in enumerate(ordered_items):
                     price_value = parse_price(item["price"])
@@ -836,6 +918,7 @@ else:
         <div class="kitchen-subtitle">Haz clic en ✅ para marcar como listo / 再点恢复</div>
     </div>
     """, unsafe_allow_html=True)
+    st.markdown('<div class="kitchen-mode"></div>', unsafe_allow_html=True)
     st.divider()
     
     # Auto-refresh
@@ -862,59 +945,70 @@ else:
     
     st.divider()
     
-    # Display tables with orders
-    for table_num in sorted(orders_data.keys(), key=lambda x: int(x)):
-        orders = orders_data[table_num]
-        if not orders:
-            continue
-        
-        pending_count = sum(1 for o in orders if o.get("status") == "pending")
-        done_count = sum(1 for o in orders if o.get("status") == "done")
-        
-        st.markdown(f"""
-        <div class="kitchen-card">
-            <h3>🪑 MESA {table_num}</h3>
-            <small>⏳ Pendientes: {pending_count} | ✅ Listos: {done_count}</small>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        col_clear, col_expand = st.columns([1, 5])
-        with col_clear:
-            if st.button("🧹", key=f"clear-{table_num}", help="Limpiar mesa"):
-                orders_data[table_num] = []
-                save_orders(orders_data)
-                st.rerun()
-        
-        # Display items
-        for idx, order in enumerate(orders):
-            status = order.get("status", "pending")
-            status_class = "status-done" if status == "done" else "status-pending"
-            status_text = "✅ LISTO" if status == "done" else "⏳ PREPARANDO"
-            
-            strike = "text-decoration: line-through;" if status == "done" else ""
-            
-            col_btn, col_item, col_notes = st.columns([1, 3, 2])
-            
-            with col_btn:
-                if st.button(
-                    "✅" if status == "pending" else "↩️",
-                    key=f"toggle-{table_num}-{idx}",
-                    help="Marcar/desmarcar como listo"
-                ):
-                    order["status"] = "done" if status == "pending" else "pending"
-                    save_orders(orders_data)
-                    st.rerun()
-            
-            with col_item:
-                st.markdown(f"""
-                <div style="{strike} opacity: {'0.6' if status == 'done' else '1'};">
-                    <strong>{order['zh']}</strong> × {order['qty']} ({order['price']})
-                    <span class="order-status-badge {status_class}">{status_text}</span>
-                </div>
-                """, unsafe_allow_html=True)
-            
-            with col_notes:
-                if order.get("notes"):
-                    st.caption(f"📝 {order['notes']}")
-        
-        st.markdown("---")
+    tables_with_orders = [
+        (table_num, orders_data[table_num])
+        for table_num in sorted(orders_data.keys(), key=lambda x: int(x))
+        if orders_data[table_num]
+    ]
+
+    if not tables_with_orders:
+        st.info("📭 Sin pedidos por ahora.")
+    else:
+        left_tables = tables_with_orders[::2]
+        right_tables = tables_with_orders[1::2]
+        col_left, col_right = st.columns(2)
+
+        for col, tables in zip([col_left, col_right], [left_tables, right_tables]):
+            with col:
+                st.markdown('<div class="kitchen-scroll-marker"></div>', unsafe_allow_html=True)
+                for table_num, orders in tables:
+                    pending_count = sum(1 for o in orders if o.get("status") == "pending")
+                    done_count = sum(1 for o in orders if o.get("status") == "done")
+
+                    st.markdown(f"""
+                    <div class="kitchen-card">
+                        <h3>🪑 MESA {table_num}</h3>
+                        <small>⏳ Pendientes: {pending_count} | ✅ Listos: {done_count}</small>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    col_clear, col_expand = st.columns([1, 5])
+                    with col_clear:
+                        if st.button("🧹", key=f"clear-{table_num}", help="Limpiar mesa"):
+                            orders_data[table_num] = []
+                            save_orders(orders_data)
+                            st.rerun()
+
+                    # Display items
+                    for idx, order in enumerate(orders):
+                        status = order.get("status", "pending")
+                        status_class = "status-done" if status == "done" else "status-pending"
+                        status_text = "✅ LISTO" if status == "done" else "⏳ PREPARANDO"
+
+                        strike = "text-decoration: line-through;" if status == "done" else ""
+
+                        col_btn, col_item, col_notes = st.columns([1, 3, 2])
+
+                        with col_btn:
+                            if st.button(
+                                "✅" if status == "pending" else "↩️",
+                                key=f"toggle-{table_num}-{idx}",
+                                help="Marcar/desmarcar como listo"
+                            ):
+                                order["status"] = "done" if status == "pending" else "pending"
+                                save_orders(orders_data)
+                                st.rerun()
+
+                        with col_item:
+                            st.markdown(f"""
+                            <div style="{strike} opacity: {'0.6' if status == 'done' else '1'};">
+                                <strong>{order['zh']}</strong> × {order['qty']} ({order['price']})
+                                <span class="order-status-badge {status_class}">{status_text}</span>
+                            </div>
+                            """, unsafe_allow_html=True)
+
+                        with col_notes:
+                            if order.get("notes"):
+                                st.caption(f"📝 {order['notes']}")
+
+                    st.markdown("---")
