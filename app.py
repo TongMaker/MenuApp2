@@ -790,12 +790,13 @@ if table_id:
                                 st.write(f"**📝 {dish['desc']}**")
                     
                     with col_action:
-                        col_qty, col_btn = st.columns([3, 2])
+                        col_qty, col_btn = st.columns([4, 1])
                         with col_qty:
                             qty = st.number_input(
                                 "",
                                 min_value=1, max_value=20, value=1,
-                                key=f"qty-{table_id}-{dish['zh']}", step=1
+                                key=f"qty-{table_id}-{dish['zh']}", step=1,
+                                label_visibility="collapsed"
                             )
                         with col_btn:
                             if st.button("✓", key=f"add-{table_id}-{dish['zh']}", help="Añadir al carrito"):
