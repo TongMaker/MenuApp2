@@ -73,7 +73,7 @@ http://localhost:8501/
    - Delete items with 🗑️
 
 9. **Checkout**
-   - Big red **CONFIRMAR PEDIDO** button
+   - Big green **CONFIRMAR PEDIDO** button
    - Order appears instantly in kitchen
    - 🎉 Celebration effect!
 
