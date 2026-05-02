@@ -748,13 +748,13 @@ if table_id:
     cart = st.session_state[cart_key]
     pending_count = len([item for item in cart if item.get("status") == "pending"])
     
-    col_menu, col_cart = st.columns([3, 1], gap="large")
+    col_menu, col_cart = st.columns([3, 1])
     
     # ==================
     # MENU TAB
     # ==================
     with col_menu:
-        st.markdown('<div class="section-header">📋 MENÚ</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">📋 Menú</div>', unsafe_allow_html=True)
         # Display menu
         all_dishes = get_all_dishes()
         filtered_dishes = all_dishes
@@ -819,7 +819,7 @@ if table_id:
     # ==================
     with col_cart:
         st.markdown('<div class="cart-sticky-marker"></div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="section-header">🛒 CARRITO ({pending_count})</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="section-header">🛒 Carrito ({pending_count})</div>', unsafe_allow_html=True)
         # Separate ordered and pending items
         ordered_items = [item for item in cart if item.get("status") == "ordered"]
         pending_items = [item for item in cart if item.get("status") == "pending"]
