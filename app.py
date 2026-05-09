@@ -3,6 +3,7 @@ import os
 import json
 from streamlit_autorefresh import st_autorefresh
 from datetime import datetime
+from zoneinfo import ZoneInfo
 import time
 
 # ======================
@@ -17,6 +18,7 @@ st.set_page_config(
 )
 
 ORDERS_FILE = "orders.json"
+MADRID_TZ = ZoneInfo("Europe/Madrid")
 
 # Modern Mobile-First Dark Theme CSS
 MODERN_THEME = """
@@ -614,7 +616,7 @@ def load_orders():
             if "status" not in item:
                 item["status"] = "pending"
             if "timestamp" not in item:
-                item["timestamp"] = datetime.now().isoformat()
+                item["timestamp"] = datetime.now(MADRID_TZ).isoformat()
             if "notes" not in item:
                 item["notes"] = ""
     
@@ -807,8 +809,8 @@ if table_id:
                                     "price": dish["price"],
                                     "status": "pending",
                                     "notes": "",
-                                    "timestamp": datetime.now().isoformat(),
-                                    "order_group": datetime.now().isoformat()
+                                    "timestamp": datetime.now(MADRID_TZ).isoformat(),
+                                    "order_group": datetime.now(MADRID_TZ).isoformat()
                                 })
                                 st.session_state[cart_key] = cart
                                 st.success(f"✅ {dish['zh']} añadido!", icon="✨")
@@ -942,7 +944,7 @@ else:
     with col3:
         st.metric("⏳ Pendientes", pending_items, delta=None)
     with col4:
-        st.metric("⏰ Hora", datetime.now().strftime("%H:%M"), delta=None)
+        st.metric("⏰ Hora", datetime.now(MADRID_TZ).strftime("%H:%M"), delta=None)
     
     st.divider()
     
