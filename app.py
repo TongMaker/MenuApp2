@@ -703,11 +703,11 @@ menu = {
     ],
     "🍻 CERVEZAS & BEBIDAS · 啤酒": [
         {"es": "Cerveza Mahou (grifo)", "zh": "Mahou扎啤", "desc": "Cerveza española clásica", "price": "2,80 €", "img": "", "spicy": False},
-        {"es": "Cerveza Mahou Limón (grifo)", "zh": "Mahou柠檬扎啤", "desc": "Fresca y refrescante", "price": "2,80 €", "img": "", "spicy": False},
-        {"es": "Mahou 5 Estrellas", "zh": "Mahou五星啤酒", "desc": "330 ml", "price": "2,80 €", "img": "", "spicy": False},
+        {"es": "Cerveza Mahou Limón (grifo)", "zh": "Mahou柠檬扎啤", "desc": "Fresca y refrescante", "price": "3,00 €", "img": "", "spicy": False},
+        {"es": "Mahou 5 Estrellas", "zh": "Mahou五星啤酒", "desc": "330 ml", "price": "3,00 €", "img": "", "spicy": False},
         {"es": "Heineken", "zh": "Heineken", "desc": "330 ml", "price": "2,80 €", "img": "", "spicy": False},
         {"es": "Cerveza Tsingtao", "zh": "青岛啤酒", "desc": "330 ml - cerveza china clásica", "price": "3,50 €", "img": "", "spicy": False},
-        {"es": "Mahou sin alcohol", "zh": "无酒精啤酒", "desc": "330 ml", "price": "2,80 €", "img": "", "spicy": False}
+        {"es": "Mahou sin alcohol", "zh": "无酒精啤酒", "desc": "330 ml", "price": "3,00 €", "img": "", "spicy": False}
     ],
     "🥤 BEBIDAS VARIADAS · 饮料": [
         {"es": "Coca-Cola", "zh": "可乐", "desc": "", "price": "2,80 €", "img": "", "spicy": False},
