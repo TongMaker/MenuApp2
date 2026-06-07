@@ -501,6 +501,11 @@ details > div {
     color: rgba(255, 255, 255, 0.45);
 }
 
+.kitchen-qty {
+    color: #FFB800;
+    font-weight: 900;
+}
+
 /* ── STATUS BADGES ── */
 .order-status-badge {
     display: inline-block;
@@ -1005,7 +1010,7 @@ else:
                         with col_item:
                             st.markdown(f"""
                             <div style="{strike} opacity: {'0.6' if status == 'done' else '1'};">
-                                <strong>{order['zh']}</strong> × {order['qty']} ({order['price']})
+                                <span class="kitchen-qty">{order['qty']} x</span> <strong>{order['zh']}</strong> ({order['price']})
                                 <span class="order-status-badge {status_class}">{status_text}</span>
                             </div>
                             """, unsafe_allow_html=True)
