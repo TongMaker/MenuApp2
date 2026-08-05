@@ -1,5 +1,6 @@
 # Core dependencies
-streamlit>=1.52.2
+streamlit==1.61.1
+starlette==1.0.0
 streamlit-autorefresh>=1.0.1
 python-dateutil>=2.9.0
 pytz>=2025.2
